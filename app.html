@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Bento Grid Landing Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* General Setup */
+        :root {
+            --color-bg: #f8f9fa; 
+            --color-card-bg: #ffffff; 
+            --color-text-primary: #343a40; 
+            --color-text-secondary: #6c757d; 
+            --color-accent: #004c97; 
+            --card-padding: 20px;
+            --border-radius: 12px;
+            --color-text-on-image: #f8f9fa; 
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--color-bg);
+            color: var(--color-text-primary);
+            line-height: 1.6;
+            padding: 30px;
+        }
+
+        /* Bento Grid Layout */
+        .bento-grid-container {
+            display: grid;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: minmax(120px, auto);
+        }
+
+        /* Card Styling */
+        .bento-card {
+            background-color: var(--color-card-bg);
+            border-radius: var(--border-radius);
+            padding: var(--card-padding);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease, box-shadow 0.2s ease; 
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .bento-card:hover {
+            transform: translateY(-2px) scale(1.01);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+        }
+
+        .card-header {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--color-accent);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .card-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .card-text {
+            font-size: 1rem;
+            color: var(--color-text-secondary);
+        }
+
+        /* Card 1 (Profile) */
+        .card-1 {
+            grid-column: span 2;
+            grid-row: span 2;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('bg.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: var(--color-accent);
+            color: var(--color-text-on-image);
+        }
+
+        .card-1 .card-header,
+        .card-1 .card-tagline,
+        .card-1 .card-subtitle,
+        .card-1 .social-links a {
+            color: var(--color-text-on-image);
+            opacity: 0.85;
+        }
+
+        .card-1 .card-title {
+            font-size: 2.5rem;
+            margin-bottom: 0;
+            line-height: 1.1;
+        }
+        
+        .card-1 .card-tagline {
+            font-size: 1rem;
+            font-weight: 400;
+            margin-bottom: 15px;
+        }
+
+        .card-1 .card-subtitle {
+             font-size: 1.2rem;
+             font-weight: 700;
+             margin-bottom: 5px;
+        }
+
+        .social-links a {
+            text-decoration: none;
+            margin-right: 15px;
+            font-size: 1.1rem;
+            transition: color 0.2s;
+        }
+        
+        /* Card 2 (Location) */
+        .card-2 {
+            grid-column: span 1;
+            grid-row: span 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .card-2 .card-title {
+            font-size: 1.8rem;
+        }
+
+        /* Card 3 (Subjects) */
+        .card-3 {
+            grid-column: span 1;
+            grid-row: span 2;
+        }
+
+        .subject-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .subject-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            font-weight: 400;
+        }
+        
+        .subject-list li:last-child {
+            border-bottom: none;
+        }
+
+        /* Card 4 (Case Study / Timer App) */
+        .card-4 {
+            grid-column: span 1;
+            grid-row: span 1;
+            gap: 12px;
+        }
+
+        /* Button Styling */
+        .btn-timer {
+            display: inline-block;
+            background-color: var(--color-accent);
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-align: center;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            margin-top: 10px;
+        }
+
+        .btn-timer:hover {
+            background-color: #003366;
+            transform: translateY(-2px);
+        }
+        
+        /* Card 5 (Hobby) */
+        .card-5 {
+            grid-column: span 1; 
+            grid-row: span 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Card 7 (Reflection) */
+        .card-7 {
+            grid-column: span 1;
+            grid-row: span 1;
+        }
+        
+        /* Card 6 (Playlist) */
+        .card-6 {
+            grid-column: span 4;
+            min-height: 100px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+            
+            .bento-grid-container {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .bento-card {
+                grid-column: span 1 !important;
+                grid-row: auto !important;
+            }
+
+            .card-1 .card-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="bento-grid-container">
+
+        <div class="bento-card card-1">
+            <div>
+                <div class="card-header">Profile & Connect</div>
+                <div class="card-title">Sarah Sabrina</div>
+                <div class="card-subtitle">Food Technology | Year 1</div>
+                <div class="card-tagline">'Engineering the Future of Food.'</div>
+                <p class="card-text">
+                    Driven student exploring the intersection of chemistry and sustainable food technology. Passionate about lab work and computational analysis.
+                </p>
+            </div>
+            <div class="social-links">
+                <a href="#" target="_blank">LinkedIn</a>
+                <a href="#" target="_blank">GitHub</a>
+                <a href="#" target="_blank">UMT Portal</a>
+            </div>
+        </div>
+
+        <div class="bento-card card-2">
+            <div class="card-header">Current Campus</div>
+            <div class="card-title">UMT</div>
+            <p class="card-text">Kuala Nerus</p>
+            <p class="card-text" id="current-time">11:55 AM</p> 
+        </div>
+
+        <div class="bento-card card-3">
+            <div class="card-header">Core Subjects</div>
+            <ul class="subject-list">
+                <li>Biochemistry ($BCH\ 101$)</li>
+                <li>Physical Chemistry ($CHM\ 102$)</li>
+                <li>Organic Chemistry ($CHM\ 101$)</li>
+                <li>Engineering Mathematics ($MTH\ 101$)</li>
+            </ul>
+        </div>
+        
+        <div class="bento-card card-4">
+            <div>
+                <div class="card-header">Recent Project</div>
+                <div class="card-title">Smart Food Processing</div>
+                <p class="card-text">
+                    Application of AI-Based vision system for Quality Inspection.
+                </p>
+            </div>
+            <a href="https://sarahsthetic.github.io/focus-timer-app/app.html" target="_blank" class="btn-timer">Try My Focus Timer App</a>
+        </div>
+
+        <div class="bento-card card-5">
+            <div class="card-header">Campus Life</div>
+            <div class="card-title">Evening Walks</div>
+            <p class="card-text">
+                Relaxing activity at Pantai UMT after classes.
+            </p>
+        </div>
+
+        <div class="bento-card card-7">
+            <div class="card-header">Perspective</div>
+            <div class="card-title">Food Security</div>
+            <p class="card-text">
+                Sustainable food security is crucial for our future by optimizing local processing.
+            </p>
+        </div>
+
+        <div class="bento-card card-6">
+            <div class="card-header">Focus Playlist</div>
+            <div class="card-title">Lo-Fi Study Beats</div>
+            <p class="card-text">
+                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/53iuhJlwXhSER5J2IYYv1W?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            </p>
+        </div>
+        
+    </div>
+
+    <script>
+        function updateTime() {
+            const options = { 
+                hour: '2-digit', 
+                minute: '2-digit', 
+                hour12: true, 
+                timeZone: 'Asia/Kuala_Lumpur'
+            };
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('en-US', options);
+            document.getElementById('current-time').textContent = timeString;
+        }
+        updateTime();
+        setInterval(updateTime, 60000); 
+    </script>
+</body>
+</html>
